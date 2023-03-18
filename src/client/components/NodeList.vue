@@ -1,12 +1,12 @@
 <template>
-    <v-card>
+    <v-card :loading="loading" density="compact">
         <v-card-title>
             Node List
-            <v-btn @click="refresh" icon="mdi-refresh"></v-btn>
         </v-card-title>
-        <v-table>
+        <v-table density="compact">
             <thead>
                 <tr>
+                    <th>Name</th>
                     <th>Node Number</th>
                     <th>Manufacturer ID</th>
                     <th>Module ID</th>
@@ -14,34 +14,47 @@
             </thead>
             <tbody>
                 <tr
-                    v-for="node in nodes"
+                    v-for="node in network.nodes"
+                    @click="selectNode(node)"
                 >
-                <td>{{  node.nodeNumber }}</td>
-                <td>{{  node.manufId }}</td>
-                <td>{{  node.moduleId }}</td>
+                <td>{{ node.name }}</td>
+                <td>{{ node.nodeNumber }}</td>
+                <td>{{ node.manufacturerId }}</td>
+                <td>{{ node.moduleId }}</td>
             </tr>
             </tbody>
         </v-table>
+        <v-card-actions class="justify-end">
+            <v-btn @click="refresh" size="x-small" icon>
+                <v-icon icon="mdi-refresh"></v-icon>
+            </v-btn>
+        </v-card-actions>
     </v-card>
 </template>
 <script lang="ts">
-import { CbusNodes, OpCodes } from '../api/api';
+
+import { Network, CbusNode } from "../config/cbusnetwork";
 
 interface NodeListData {
-    nodes: OpCodes.PNN[]
+    network: typeof Network,
+    loading: boolean
 }
 
 export default {
     data() : NodeListData {
         return {
-            nodes:[]
+            network: Network,
+            loading: false
         }
     },
     methods: {
         async refresh() {
-            const nodes = await CbusNodes.QueryNodes({});
-            this.nodes = nodes.data;
-            
+            this.loading = true;
+            await this.network.refreshNodes();
+            this.loading = false;
+        },
+        selectNode(node: CbusNode):void {
+            console.log("Select node", node.nodeNumber);
         }
     }
 }

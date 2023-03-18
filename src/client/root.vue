@@ -7,8 +7,8 @@
                     <v-icon icon="mdi-menu"></v-icon>
                     <v-menu activator="parent">
                         <v-list>
-                            <v-list-item title="Item 2"></v-list-item>
-                            <v-list-item title="Item 3"></v-list-item>
+                            <v-list-item title="Item 1" value="1"></v-list-item>
+                            <v-list-item title="Item 2" value="2"></v-list-item>
                         </v-list>
                     </v-menu>
                 </v-btn>
@@ -37,6 +37,16 @@ import nodeList from "./components/NodeList.vue";
 import { CbusConnection, CbusNodes } from "./api/api"
 
 export default {
+    data() {
+        return {
+            item: null
+        }
+    },
+    watch: {
+        item(i){
+console.log("menu ", i);
+        }
+    },
     components: {
         "status-bar": statusbar,
         "cbus-connection": cbusConnection,
