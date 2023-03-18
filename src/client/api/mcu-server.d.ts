@@ -23,9 +23,32 @@ export interface paths {
     post: {
       requestBody?: {
         content: {
+          "application/json-patch+json": components["schemas"]["ConnectionOptions"];
           "application/json": components["schemas"]["ConnectionOptions"];
           "text/json": components["schemas"]["ConnectionOptions"];
           "application/*+json": components["schemas"]["ConnectionOptions"];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": boolean;
+            "application/json": boolean;
+            "text/json": boolean;
+          };
+        };
+      };
+    };
+  };
+  "/CbusConnection/Send": {
+    post: {
+      requestBody?: {
+        content: {
+          "application/json-patch+json": components["schemas"]["ICbusOpCode"];
+          "application/json": components["schemas"]["ICbusOpCode"];
+          "text/json": components["schemas"]["ICbusOpCode"];
+          "application/*+json": components["schemas"]["ICbusOpCode"];
         };
       };
       responses: {
@@ -52,7 +75,9 @@ export interface components {
      * @enum {integer}
      */
     AccErrorCodeEnum: 1 | 2 | 3 | 4 | 6 | 7 | 9 | 10 | 11 | 12;
-    AccessoryNodeDataEvent: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryNodeDataEvent: {
+      $type: "AccessoryNodeDataEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -77,7 +102,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    AccessoryNodeDataResponse: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryNodeDataResponse: {
+      $type: "AccessoryNodeDataResponse";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -102,7 +129,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    AccessoryOff: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOff: {
+      $type: "AccessoryOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -123,7 +152,9 @@ export interface components {
       isOnEvent?: boolean;
       isOffEvent?: boolean;
     });
-    AccessoryOff1: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOff1: {
+      $type: "AccessoryOff1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -142,87 +173,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    AccessoryOff2: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-    });
-    AccessoryOff3: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-      /** Format: int32 */
-      data3?: number;
-    });
-    AccessoryOffResponseEvent: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-    });
-    AccessoryOffResponseEvent1: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-    });
-    AccessoryOffResponseEvent2: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOff2: {
+      $type: "AccessoryOff2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -243,7 +196,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    AccessoryOffResponseEvent3: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOff3: {
+      $type: "AccessoryOff3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -266,7 +221,97 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    AccessoryOn: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOffResponseEvent: {
+      $type: "AccessoryOffResponseEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+    });
+    AccessoryOffResponseEvent1: {
+      $type: "AccessoryOffResponseEvent1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+    });
+    AccessoryOffResponseEvent2: {
+      $type: "AccessoryOffResponseEvent2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+    });
+    AccessoryOffResponseEvent3: {
+      $type: "AccessoryOffResponseEvent3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+      /** Format: int32 */
+      data3?: number;
+    });
+    AccessoryOn: {
+      $type: "AccessoryOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -287,7 +332,9 @@ export interface components {
       isOnEvent?: boolean;
       isOffEvent?: boolean;
     });
-    AccessoryOn1: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOn1: {
+      $type: "AccessoryOn1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -306,87 +353,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    AccessoryOn2: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-    });
-    AccessoryOn3: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-      /** Format: int32 */
-      data3?: number;
-    });
-    AccessoryOnResponseEvent: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-    });
-    AccessoryOnResponseEvent1: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      eventNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-    });
-    AccessoryOnResponseEvent2: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOn2: {
+      $type: "AccessoryOn2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -407,7 +376,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    AccessoryOnResponseEvent3: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOn3: {
+      $type: "AccessoryOn3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -430,7 +401,9 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    AccessoryRequestEvent: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOnResponseEvent: {
+      $type: "AccessoryOnResponseEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -447,7 +420,97 @@ export interface components {
       /** Format: int32 */
       eventNumber?: number;
     });
-    AccessoryShortOff: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryOnResponseEvent1: {
+      $type: "AccessoryOnResponseEvent1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+    });
+    AccessoryOnResponseEvent2: {
+      $type: "AccessoryOnResponseEvent2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+    });
+    AccessoryOnResponseEvent3: {
+      $type: "AccessoryOnResponseEvent3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+      /** Format: int32 */
+      data3?: number;
+    });
+    AccessoryRequestEvent: {
+      $type: "AccessoryRequestEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      eventNumber?: number;
+    });
+    AccessoryShortOff: {
+      $type: "AccessoryShortOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -468,7 +531,9 @@ export interface components {
       isOnEvent?: boolean;
       isOffEvent?: boolean;
     });
-    AccessoryShortOff1: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOff1: {
+      $type: "AccessoryShortOff1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -487,7 +552,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    AccessoryShortOff2: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOff2: {
+      $type: "AccessoryShortOff2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -508,7 +575,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    AccessoryShortOff3: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOff3: {
+      $type: "AccessoryShortOff3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -531,7 +600,9 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    AccessoryShortOn: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOn: {
+      $type: "AccessoryShortOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -552,7 +623,9 @@ export interface components {
       isOnEvent?: boolean;
       isOffEvent?: boolean;
     });
-    AccessoryShortOn1: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOn1: {
+      $type: "AccessoryShortOn1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -571,104 +644,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    AccessoryShortOn2: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      deviceNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-    });
-    AccessoryShortOn3: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      deviceNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-      /** Format: int32 */
-      data2?: number;
-      /** Format: int32 */
-      data3?: number;
-    });
-    AccessoryShortRequestEvent: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      deviceNumber?: number;
-    });
-    AccessoryShortResponseOff: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      deviceNumber?: number;
-    });
-    AccessoryShortResponseOff1: components["schemas"]["ICbusOpCode"] & ({
-      message?: components["schemas"]["ICbusStandardMessage"];
-      /** Format: int32 */
-      dataLength?: number;
-      code?: string | null;
-      description?: string | null;
-      group?: components["schemas"]["OpCodeGroup"];
-      name?: string | null;
-      /** Format: int32 */
-      number?: number;
-      /** Format: int32 */
-      priority?: number;
-      /** Format: int32 */
-      nodeNumber?: number;
-      /** Format: int32 */
-      deviceNumber?: number;
-      /** Format: int32 */
-      data1?: number;
-    });
-    AccessoryShortResponseOff2: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOn2: {
+      $type: "AccessoryShortOn2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -689,7 +667,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    AccessoryShortResponseOff3: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortOn3: {
+      $type: "AccessoryShortOn3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -712,7 +692,9 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    AccessoryShortResponseOn: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortRequestEvent: {
+      $type: "AccessoryShortRequestEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -729,7 +711,28 @@ export interface components {
       /** Format: int32 */
       deviceNumber?: number;
     });
-    AccessoryShortResponseOn1: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortResponseOff: {
+      $type: "AccessoryShortResponseOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      deviceNumber?: number;
+    });
+    AccessoryShortResponseOff1: {
+      $type: "AccessoryShortResponseOff1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -748,7 +751,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    AccessoryShortResponseOn2: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortResponseOff2: {
+      $type: "AccessoryShortResponseOff2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -769,7 +774,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    AccessoryShortResponseOn3: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortResponseOff3: {
+      $type: "AccessoryShortResponseOff3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -792,7 +799,97 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    AllocateLocoToActivity: components["schemas"]["ICbusOpCode"] & ({
+    AccessoryShortResponseOn: {
+      $type: "AccessoryShortResponseOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      deviceNumber?: number;
+    });
+    AccessoryShortResponseOn1: {
+      $type: "AccessoryShortResponseOn1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      deviceNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+    });
+    AccessoryShortResponseOn2: {
+      $type: "AccessoryShortResponseOn2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      deviceNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+    });
+    AccessoryShortResponseOn3: {
+      $type: "AccessoryShortResponseOn3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
+      message?: components["schemas"]["ICbusStandardMessage"];
+      /** Format: int32 */
+      dataLength?: number;
+      code?: string | null;
+      description?: string | null;
+      group?: components["schemas"]["OpCodeGroup"];
+      name?: string | null;
+      /** Format: int32 */
+      number?: number;
+      /** Format: int32 */
+      priority?: number;
+      /** Format: int32 */
+      nodeNumber?: number;
+      /** Format: int32 */
+      deviceNumber?: number;
+      /** Format: int32 */
+      data1?: number;
+      /** Format: int32 */
+      data2?: number;
+      /** Format: int32 */
+      data3?: number;
+    });
+    AllocateLocoToActivity: {
+      $type: "AllocateLocoToActivity";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -809,7 +906,9 @@ export interface components {
       /** Format: int32 */
       allocationCode?: number;
     });
-    BusHalt: components["schemas"]["ICbusOpCode"] & ({
+    BusHalt: {
+      $type: "BusHalt";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -822,7 +921,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    BusOn: components["schemas"]["ICbusOpCode"] & ({
+    BusOn: {
+      $type: "BusOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -835,7 +936,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    ClearAllEventsFromANode: components["schemas"]["ICbusOpCode"] & ({
+    ClearAllEventsFromANode: {
+      $type: "ClearAllEventsFromANode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -850,7 +953,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    CommandStationErrorReport: components["schemas"]["ICbusOpCode"] & ({
+    CommandStationErrorReport: {
+      $type: "CommandStationErrorReport";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -868,7 +973,9 @@ export interface components {
       data2?: number;
       dccErrorCode?: components["schemas"]["DccErrorCodeEnum"];
     });
-    CommandStationStatusReport: components["schemas"]["ICbusOpCode"] & ({
+    CommandStationStatusReport: {
+      $type: "CommandStationStatusReport";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -903,7 +1010,9 @@ export interface components {
      * @enum {integer}
      */
     ConnectionTypes: 0 | 1;
-    ConsistEngine: components["schemas"]["ICbusOpCode"] & ({
+    ConsistEngine: {
+      $type: "ConsistEngine";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -932,7 +1041,9 @@ export interface components {
      * @enum {integer}
      */
     DccErrorCodeEnum: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-    DebugWithOneDataByte: components["schemas"]["ICbusOpCode"] & ({
+    DebugWithOneDataByte: {
+      $type: "DebugWithOneDataByte";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -947,7 +1058,9 @@ export interface components {
       /** Format: int32 */
       debugStatus?: number;
     });
-    DeviceDataEventShortMode: components["schemas"]["ICbusOpCode"] & ({
+    DeviceDataEventShortMode: {
+      $type: "DeviceDataEventShortMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -972,7 +1085,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    DeviceDataResponseShortMode: components["schemas"]["ICbusOpCode"] & ({
+    DeviceDataResponseShortMode: {
+      $type: "DeviceDataResponseShortMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -997,7 +1112,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    EmergencyStop: components["schemas"]["ICbusOpCode"] & ({
+    EmergencyStop: {
+      $type: "EmergencyStop";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1010,7 +1127,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    EngineReport: components["schemas"]["ICbusOpCode"] & ({
+    EngineReport: {
+      $type: "EngineReport";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1041,7 +1160,9 @@ export interface components {
      * @enum {integer}
      */
     EngineStateEnum: 1 | 2 | 4 | 8;
-    ErrorMessagesFromNodesDuringConfiguration: components["schemas"]["ICbusOpCode"] & ({
+    ErrorMessagesFromNodesDuringConfiguration: {
+      $type: "ErrorMessagesFromNodesDuringConfiguration";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1057,7 +1178,9 @@ export interface components {
       nodeNumber?: number;
       accErrorCode?: components["schemas"]["AccErrorCodeEnum"];
     });
-    EventSpaceLeftReplyFromNode: components["schemas"]["ICbusOpCode"] & ({
+    EventSpaceLeftReplyFromNode: {
+      $type: "EventSpaceLeftReplyFromNode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1074,7 +1197,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    ExtendedOpcodeWith1DataByte: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith1DataByte: {
+      $type: "ExtendedOpcodeWith1DataByte";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1091,7 +1216,9 @@ export interface components {
       /** Format: int32 */
       data1?: number;
     });
-    ExtendedOpcodeWith2DataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith2DataBytes: {
+      $type: "ExtendedOpcodeWith2DataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1110,7 +1237,9 @@ export interface components {
       /** Format: int32 */
       data2?: number;
     });
-    ExtendedOpcodeWith3DataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith3DataBytes: {
+      $type: "ExtendedOpcodeWith3DataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1131,7 +1260,9 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    ExtendedOpcodeWith4DataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith4DataBytes: {
+      $type: "ExtendedOpcodeWith4DataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1154,7 +1285,9 @@ export interface components {
       /** Format: int32 */
       data4?: number;
     });
-    ExtendedOpcodeWith5DataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith5DataBytes: {
+      $type: "ExtendedOpcodeWith5DataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1179,7 +1312,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    ExtendedOpcodeWith6DataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWith6DataBytes: {
+      $type: "ExtendedOpcodeWith6DataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1206,7 +1341,9 @@ export interface components {
       /** Format: int32 */
       data6?: number;
     });
-    ExtendedOpcodeWithNoDataBytes: components["schemas"]["ICbusOpCode"] & ({
+    ExtendedOpcodeWithNoDataBytes: {
+      $type: "ExtendedOpcodeWithNoDataBytes";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1221,7 +1358,9 @@ export interface components {
       /** Format: int32 */
       extendedOpCode?: number;
     });
-    FastClock: components["schemas"]["ICbusOpCode"] & ({
+    FastClock: {
+      $type: "FastClock";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1246,7 +1385,9 @@ export interface components {
       /** Format: int32 */
       temperature?: number;
     });
-    ForceASelfEnumerationCycleForUseWithCan: components["schemas"]["ICbusOpCode"] & ({
+    ForceASelfEnumerationCycleForUseWithCan: {
+      $type: "ForceASelfEnumerationCycleForUseWithCan";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1267,7 +1408,9 @@ export interface components {
      * @enum {integer}
      */
     FunctionRangeEnum: 1 | 2 | 3 | 4 | 5;
-    GeneralAcknowledgement: components["schemas"]["ICbusOpCode"] & ({
+    GeneralAcknowledgement: {
+      $type: "GeneralAcknowledgement";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1280,7 +1423,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    GeneralNoAcknowledgement: components["schemas"]["ICbusOpCode"] & ({
+    GeneralNoAcknowledgement: {
+      $type: "GeneralNoAcknowledgement";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1293,7 +1438,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    GetEngineSession: components["schemas"]["ICbusOpCode"] & ({
+    GetEngineSession: {
+      $type: "GetEngineSession";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1309,11 +1456,6 @@ export interface components {
       address?: number;
       sessionFlags?: components["schemas"]["SessionFlagsEnum"];
     });
-    ICbusMessage: {
-      isExtended?: boolean;
-      /** Format: int32 */
-      length?: number;
-    };
     ICbusOpCode: {
       code?: string | null;
       /** Format: int32 */
@@ -1326,13 +1468,17 @@ export interface components {
       /** Format: int32 */
       priority?: number;
       message?: components["schemas"]["ICbusStandardMessage"];
+      /** @default Asgard.Data.ICbusOpCode */
+      $type: string;
     };
     ICbusStandardMessage: {
       isExtended?: boolean;
       /** Format: int32 */
       length?: number;
     };
-    "IErrorReplyTo`1": components["schemas"]["ICbusOpCode"] & ({
+    "IErrorReplyTo`1": {
+      $type: "IErrorReplyTo`1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       /** Format: int32 */
       dataLength?: number;
@@ -1345,7 +1491,9 @@ export interface components {
       priority?: number;
       message?: components["schemas"]["ICbusStandardMessage"];
     });
-    "IReplyTo`1": components["schemas"]["ICbusOpCode"] & ({
+    "IReplyTo`1": {
+      $type: "IReplyTo`1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       /** Format: int32 */
       dataLength?: number;
@@ -1370,7 +1518,9 @@ export interface components {
      * @enum {integer}
      */
     NodeFlagsEnum: 1 | 2 | 4 | 8;
-    NodeNumberAcknowledge: components["schemas"]["ICbusOpCode"] & ({
+    NodeNumberAcknowledge: {
+      $type: "NodeNumberAcknowledge";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1385,7 +1535,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    NodeNumberRelease: components["schemas"]["ICbusOpCode"] & ({
+    NodeNumberRelease: {
+      $type: "NodeNumberRelease";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1400,7 +1552,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    NumberOfEventsStoredInNode: components["schemas"]["ICbusOpCode"] & ({
+    NumberOfEventsStoredInNode: {
+      $type: "NumberOfEventsStoredInNode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1417,7 +1571,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    OpCodeData: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData: {
+      $type: "OpCodeData";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       /** Format: int32 */
       dataLength?: number;
@@ -1430,7 +1586,9 @@ export interface components {
       priority?: number;
       message?: components["schemas"]["ICbusStandardMessage"];
     });
-    OpCodeData0: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData0: {
+      $type: "OpCodeData0";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1443,7 +1601,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData1: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData1: {
+      $type: "OpCodeData1";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1456,7 +1616,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData2: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData2: {
+      $type: "OpCodeData2";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1469,7 +1631,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData3: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData3: {
+      $type: "OpCodeData3";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1482,7 +1646,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData4: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData4: {
+      $type: "OpCodeData4";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1495,7 +1661,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData5: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData5: {
+      $type: "OpCodeData5";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1508,7 +1676,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData6: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData6: {
+      $type: "OpCodeData6";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1521,7 +1691,9 @@ export interface components {
       /** Format: int32 */
       dataLength?: number;
     });
-    OpCodeData7: components["schemas"]["ICbusOpCode"] & ({
+    OpCodeData7: {
+      $type: "OpCodeData7";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
@@ -1540,7 +1712,9 @@ export interface components {
      * @enum {integer}
      */
     OpCodeGroup: 0 | 1 | 2 | 3 | 4 | 5;
-    PutNodeIntoBootloadMode: components["schemas"]["ICbusOpCode"] & ({
+    PutNodeIntoBootloadMode: {
+      $type: "PutNodeIntoBootloadMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1555,7 +1729,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    QueryConsist: components["schemas"]["ICbusOpCode"] & ({
+    QueryConsist: {
+      $type: "QueryConsist";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1572,7 +1748,9 @@ export interface components {
       /** Format: int32 */
       index?: number;
     });
-    QueryEngine: components["schemas"]["ICbusOpCode"] & ({
+    QueryEngine: {
+      $type: "QueryEngine";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1587,7 +1765,9 @@ export interface components {
       /** Format: int32 */
       session?: number;
     });
-    QueryNodeNumber: components["schemas"]["ICbusOpCode"] & ({
+    QueryNodeNumber: {
+      $type: "QueryNodeNumber";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1600,7 +1780,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    ReadBackAllStoredEventsInANode: components["schemas"]["ICbusOpCode"] & ({
+    ReadBackAllStoredEventsInANode: {
+      $type: "ReadBackAllStoredEventsInANode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1615,7 +1797,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    ReadCv: components["schemas"]["ICbusOpCode"] & ({
+    ReadCv: {
+      $type: "ReadCv";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1633,7 +1817,9 @@ export interface components {
       cv?: number;
       serviceMode?: components["schemas"]["ServiceModeEnum"];
     });
-    ReadEventVariableInLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    ReadEventVariableInLearnMode: {
+      $type: "ReadEventVariableInLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1652,7 +1838,9 @@ export interface components {
       /** Format: int32 */
       evIndex?: number;
     });
-    ReadNumberOfEventsAvailableInANode: components["schemas"]["ICbusOpCode"] & ({
+    ReadNumberOfEventsAvailableInANode: {
+      $type: "ReadNumberOfEventsAvailableInANode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1667,7 +1855,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    ReleaseEngine: components["schemas"]["ICbusOpCode"] & ({
+    ReleaseEngine: {
+      $type: "ReleaseEngine";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1682,7 +1872,9 @@ export interface components {
       /** Format: int32 */
       session?: number;
     });
-    ReleaseNodeFromLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    ReleaseNodeFromLearnMode: {
+      $type: "ReleaseNodeFromLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1697,7 +1889,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    RemoveEngineFromConsist: components["schemas"]["ICbusOpCode"] & ({
+    RemoveEngineFromConsist: {
+      $type: "RemoveEngineFromConsist";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1714,7 +1908,9 @@ export interface components {
       /** Format: int32 */
       session?: number;
     });
-    ReportCv: components["schemas"]["ICbusOpCode"] & ({
+    ReportCv: {
+      $type: "ReportCv";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1733,7 +1929,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    Request3ByteDccPacket: components["schemas"]["ICbusOpCode"] & ({
+    Request3ByteDccPacket: {
+      $type: "Request3ByteDccPacket";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1754,7 +1952,9 @@ export interface components {
       /** Format: int32 */
       data3?: number;
     });
-    Request4ByteDccPacket: components["schemas"]["ICbusOpCode"] & ({
+    Request4ByteDccPacket: {
+      $type: "Request4ByteDccPacket";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1777,7 +1977,9 @@ export interface components {
       /** Format: int32 */
       data4?: number;
     });
-    Request5ByteDccPacket: components["schemas"]["ICbusOpCode"] & ({
+    Request5ByteDccPacket: {
+      $type: "Request5ByteDccPacket";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1802,7 +2004,9 @@ export interface components {
       /** Format: int32 */
       data5?: number;
     });
-    Request6ByteDccPacket: components["schemas"]["ICbusOpCode"] & ({
+    Request6ByteDccPacket: {
+      $type: "Request6ByteDccPacket";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1829,7 +2033,9 @@ export interface components {
       /** Format: int32 */
       data6?: number;
     });
-    RequestCommandStationStatus: components["schemas"]["ICbusOpCode"] & ({
+    RequestCommandStationStatus: {
+      $type: "RequestCommandStationStatus";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1842,7 +2048,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    RequestDeviceDataShortMode: components["schemas"]["ICbusOpCode"] & ({
+    RequestDeviceDataShortMode: {
+      $type: "RequestDeviceDataShortMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1857,7 +2065,9 @@ export interface components {
       /** Format: int32 */
       deviceNumber?: number;
     });
-    RequestEmergencyStopAll: components["schemas"]["ICbusOpCode"] & ({
+    RequestEmergencyStopAll: {
+      $type: "RequestEmergencyStopAll";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1870,7 +2080,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    RequestEngineSession: components["schemas"]["ICbusOpCode"] & ({
+    RequestEngineSession: {
+      $type: "RequestEngineSession";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1885,7 +2097,9 @@ export interface components {
       /** Format: int32 */
       address?: number;
     });
-    RequestForReadOfAnEventVariable: components["schemas"]["ICbusOpCode"] & ({
+    RequestForReadOfAnEventVariable: {
+      $type: "RequestForReadOfAnEventVariable";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1904,7 +2118,9 @@ export interface components {
       /** Format: int32 */
       evIndex?: number;
     });
-    RequestModuleName: components["schemas"]["ICbusOpCode"] & ({
+    RequestModuleName: {
+      $type: "RequestModuleName";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1917,7 +2133,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    RequestNodeDataEvent: components["schemas"]["ICbusOpCode"] & ({
+    RequestNodeDataEvent: {
+      $type: "RequestNodeDataEvent";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1932,7 +2150,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    RequestNodeNumber: components["schemas"]["ICbusOpCode"] & ({
+    RequestNodeNumber: {
+      $type: "RequestNodeNumber";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1947,7 +2167,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    RequestNodeParameters: components["schemas"]["ICbusOpCode"] & ({
+    RequestNodeParameters: {
+      $type: "RequestNodeParameters";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1960,7 +2182,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    RequestReadOfANodeParameterByIndex: components["schemas"]["ICbusOpCode"] & ({
+    RequestReadOfANodeParameterByIndex: {
+      $type: "RequestReadOfANodeParameterByIndex";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1977,7 +2201,9 @@ export interface components {
       /** Format: int32 */
       paramIndex?: number;
     });
-    RequestReadOfANodeVariable: components["schemas"]["ICbusOpCode"] & ({
+    RequestReadOfANodeVariable: {
+      $type: "RequestReadOfANodeVariable";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -1994,7 +2220,9 @@ export interface components {
       /** Format: int32 */
       nvIndex?: number;
     });
-    RequestReadOfStoredEventsByEventIndex: components["schemas"]["ICbusOpCode"] & ({
+    RequestReadOfStoredEventsByEventIndex: {
+      $type: "RequestReadOfStoredEventsByEventIndex";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2011,7 +2239,9 @@ export interface components {
       /** Format: int32 */
       enIndex?: number;
     });
-    RequestToReadNumberOfStoredEvents: components["schemas"]["ICbusOpCode"] & ({
+    RequestToReadNumberOfStoredEvents: {
+      $type: "RequestToReadNumberOfStoredEvents";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2026,7 +2256,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    RequestTrackOff: components["schemas"]["ICbusOpCode"] & ({
+    RequestTrackOff: {
+      $type: "RequestTrackOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2039,7 +2271,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    RequestTrackOn: components["schemas"]["ICbusOpCode"] & ({
+    RequestTrackOn: {
+      $type: "RequestTrackOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2052,7 +2286,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    ResponseToARequestForAnEvValueInANodeInLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToARequestForAnEvValueInANodeInLearnMode: {
+      $type: "ResponseToARequestForAnEvValueInANodeInLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2073,7 +2309,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    ResponseToARequestForANodeVariableValue: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToARequestForANodeVariableValue: {
+      $type: "ResponseToARequestForANodeVariableValue";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2092,7 +2330,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    ResponseToQueryNode: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToQueryNode: {
+      $type: "ResponseToQueryNode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2112,7 +2352,9 @@ export interface components {
       moduleId?: number;
       nodeFlags?: components["schemas"]["NodeFlagsEnum"];
     });
-    ResponseToRequestForIndividualNodeParameter: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToRequestForIndividualNodeParameter: {
+      $type: "ResponseToRequestForIndividualNodeParameter";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2131,7 +2373,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    ResponseToRequestForNodeNameString: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToRequestForNodeNameString: {
+      $type: "ResponseToRequestForNodeNameString";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2151,7 +2395,9 @@ export interface components {
       char6?: string;
       char7?: string;
     });
-    ResponseToRequestForNodeParameters: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToRequestForNodeParameters: {
+      $type: "ResponseToRequestForNodeParameters";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2178,7 +2424,9 @@ export interface components {
       /** Format: int32 */
       param7?: number;
     });
-    ResponseToRequestForReadOfEvValue: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToRequestForReadOfEvValue: {
+      $type: "ResponseToRequestForReadOfEvValue";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2199,7 +2447,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    ResponseToRequestToReadNodeEvents: components["schemas"]["ICbusOpCode"] & ({
+    ResponseToRequestToReadNodeEvents: {
+      $type: "ResponseToRequestToReadNodeEvents";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2233,7 +2483,9 @@ export interface components {
      * @enum {integer}
      */
     ServiceModeEnum: 0 | 1 | 2 | 3 | 4;
-    ServiceModeStatus: components["schemas"]["ICbusOpCode"] & ({
+    ServiceModeStatus: {
+      $type: "ServiceModeStatus";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2255,7 +2507,9 @@ export interface components {
      * @enum {integer}
      */
     SessionFlagsEnum: 0 | 1 | 2;
-    SessionKeepAlive: components["schemas"]["ICbusOpCode"] & ({
+    SessionKeepAlive: {
+      $type: "SessionKeepAlive";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2276,7 +2530,9 @@ export interface components {
      * @enum {integer}
      */
     SessionStatusEnum: 1 | 2 | 3 | 4 | 5;
-    SetACan_idInExistingFlimNode: components["schemas"]["ICbusOpCode"] & ({
+    SetACan_idInExistingFlimNode: {
+      $type: "SetACan_idInExistingFlimNode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2293,7 +2549,9 @@ export interface components {
       /** Format: int32 */
       caN_ID?: number;
     });
-    SetANodeVariable: components["schemas"]["ICbusOpCode"] & ({
+    SetANodeVariable: {
+      $type: "SetANodeVariable";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2312,7 +2570,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    SetCabSessionMode: components["schemas"]["ICbusOpCode"] & ({
+    SetCabSessionMode: {
+      $type: "SetCabSessionMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2330,7 +2590,9 @@ export interface components {
       serviceMode?: components["schemas"]["ServiceModeEnum"];
       soundMode?: boolean;
     });
-    SetEngineFlags: components["schemas"]["ICbusOpCode"] & ({
+    SetEngineFlags: {
+      $type: "SetEngineFlags";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2349,7 +2611,9 @@ export interface components {
       direction?: boolean;
       engineState?: components["schemas"]["EngineStateEnum"];
     });
-    SetEngineFunctionOff: components["schemas"]["ICbusOpCode"] & ({
+    SetEngineFunctionOff: {
+      $type: "SetEngineFunctionOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2366,7 +2630,9 @@ export interface components {
       /** Format: int32 */
       functionNumber?: number;
     });
-    SetEngineFunctionOn: components["schemas"]["ICbusOpCode"] & ({
+    SetEngineFunctionOn: {
+      $type: "SetEngineFunctionOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2383,7 +2649,9 @@ export interface components {
       /** Format: int32 */
       functionNumber?: number;
     });
-    SetEngineFunctions: components["schemas"]["ICbusOpCode"] & ({
+    SetEngineFunctions: {
+      $type: "SetEngineFunctions";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2401,7 +2669,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    SetEngineSpeedAndDirection: components["schemas"]["ICbusOpCode"] & ({
+    SetEngineSpeedAndDirection: {
+      $type: "SetEngineSpeedAndDirection";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2418,7 +2688,9 @@ export interface components {
       /** Format: int32 */
       speedDir?: number;
     });
-    SetNodeIntoLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    SetNodeIntoLearnMode: {
+      $type: "SetNodeIntoLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2433,7 +2705,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    SetNodeNumber: components["schemas"]["ICbusOpCode"] & ({
+    SetNodeNumber: {
+      $type: "SetNodeNumber";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2454,7 +2728,9 @@ export interface components {
      * @enum {integer}
      */
     SpeedModeEnum: 0 | 1 | 2 | 3;
-    SystemReset: components["schemas"]["ICbusOpCode"] & ({
+    SystemReset: {
+      $type: "SystemReset";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2472,7 +2748,9 @@ export interface components {
       port?: number;
       host?: string | null;
     };
-    TeachAnEventInLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    TeachAnEventInLearnMode: {
+      $type: "TeachAnEventInLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2493,7 +2771,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    TeachAnEventInLearnModeUsingEventIndexing: components["schemas"]["ICbusOpCode"] & ({
+    TeachAnEventInLearnModeUsingEventIndexing: {
+      $type: "TeachAnEventInLearnModeUsingEventIndexing";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2516,7 +2796,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    TrackOff: components["schemas"]["ICbusOpCode"] & ({
+    TrackOff: {
+      $type: "TrackOff";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2529,7 +2811,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    TrackOn: components["schemas"]["ICbusOpCode"] & ({
+    TrackOn: {
+      $type: "TrackOn";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2542,7 +2826,9 @@ export interface components {
       /** Format: int32 */
       priority?: number;
     });
-    UnlearnAnEventInLearnMode: components["schemas"]["ICbusOpCode"] & ({
+    UnlearnAnEventInLearnMode: {
+      $type: "UnlearnAnEventInLearnMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2565,7 +2851,9 @@ export interface components {
      * @enum {integer}
      */
     WeekdayEnum: 1 | 2 | 3 | 4 | 5 | 6 | 7;
-    WriteAcknowledge: components["schemas"]["ICbusOpCode"] & ({
+    WriteAcknowledge: {
+      $type: "WriteAcknowledge";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2580,7 +2868,9 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
     });
-    WriteCvBitInOpsMode: components["schemas"]["ICbusOpCode"] & ({
+    WriteCvBitInOpsMode: {
+      $type: "WriteCvBitInOpsMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2599,7 +2889,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    WriteCvByteInOpsMode: components["schemas"]["ICbusOpCode"] & ({
+    WriteCvByteInOpsMode: {
+      $type: "WriteCvByteInOpsMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2618,7 +2910,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    WriteCvByteInOpsModeByAddress: components["schemas"]["ICbusOpCode"] & ({
+    WriteCvByteInOpsModeByAddress: {
+      $type: "WriteCvByteInOpsModeByAddress";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;
@@ -2639,7 +2933,9 @@ export interface components {
       /** Format: int32 */
       value?: number;
     });
-    WriteCvInServiceMode: components["schemas"]["ICbusOpCode"] & ({
+    WriteCvInServiceMode: {
+      $type: "WriteCvInServiceMode";
+    } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       message?: components["schemas"]["ICbusStandardMessage"];
       /** Format: int32 */
       dataLength?: number;

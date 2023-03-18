@@ -1,11 +1,14 @@
 using Asgard.Data;
 using Asgard.Extensions;
+using mcu_server;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(o => {
+    o.SerializerSettings.Converters.Add(new CbusOpCodeConverter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(co =>

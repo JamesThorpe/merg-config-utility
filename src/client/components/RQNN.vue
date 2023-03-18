@@ -10,10 +10,11 @@
                 New FLiM node detected
             </template>
             <v-card-text>
-
+                A new FLiM node has been detected.  Please assign it a node number:
+                <v-text-field v-model="nodeNumber" label="Node Number"></v-text-field>
             </v-card-text>
             <v-card-actions class="justify-end">
-                <v-btn color="primary">Ok</v-btn>
+                <v-btn color="primary" @click="assign">Ok</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -21,22 +22,34 @@
 <script lang="ts">
 import { Socket } from '../api/socket';
 import { components } from '../api/mcu-server';
-
+import {OpCodes} from "../api/socket-messages";
+import { CbusConnection } from "../api/api";
 export default {
     data() {
         return {
-            rqnnOpen: false
+            rqnnOpen: false,
+            nodeNumber: 0
         }
     },
     beforeMount() {
         Socket.standardMessageReceived.on((h) => {
-            
             if (h.code !== "RQNN") return;
-            const msg = h as components["schemas"]["RequestNodeNumber"];
-            
-            console.log(msg.description);
+            const msg = h as OpCodes.RQNN;
+           
             this.rqnnOpen = true;
         });
+    },
+    methods: {
+        async assign() {
+            let snn: OpCodes.SNN = {
+                $type: "SetNodeNumber",
+                code: "SNN",
+                nodeNumber: this.nodeNumber
+            };
+            if (await CbusConnection.send(snn)) {
+                this.rqnnOpen = false;
+            }            
+        }
     }
 }
 </script>

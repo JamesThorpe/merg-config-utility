@@ -1,4 +1,5 @@
 using Asgard.Communications;
+using Asgard.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mcu_server.Controllers
@@ -38,6 +39,12 @@ namespace mcu_server.Controllers
 
             await _cbusMessenger.OpenAsync(connectionOptions);
             return _cbusMessenger.IsOpen;
+        }
+
+        [HttpPost]
+        [Route("Send")]
+        public async Task<bool> Send(ICbusOpCode msg) {
+            return await _cbusMessenger.SendMessage(msg);
         }
 
 

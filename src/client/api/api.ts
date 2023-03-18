@@ -24,5 +24,6 @@ export namespace CbusConnection {
      */
     export const getComPorts = fetcher.path("/CbusConnection/GetComPorts").method("get").create();
     export const connect = fetcher.path("/CbusConnection/Connect").method("post").create();
+    export const send = fetcher.path("/CbusConnection/Send").method("post").create();
 }
 
