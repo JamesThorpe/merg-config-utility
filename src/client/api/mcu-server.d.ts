@@ -41,6 +41,20 @@ export interface paths {
       };
     };
   };
+  "/CbusConnection/Status": {
+    get: {
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": boolean;
+            "application/json": boolean;
+            "text/json": boolean;
+          };
+        };
+      };
+    };
+  };
   "/CbusConnection/Send": {
     post: {
       requestBody?: {
@@ -58,6 +72,42 @@ export interface paths {
             "text/plain": boolean;
             "application/json": boolean;
             "text/json": boolean;
+          };
+        };
+      };
+    };
+  };
+  "/Node/SetNodeNumber": {
+    post: {
+      requestBody?: {
+        content: {
+          "application/json-patch+json": components["schemas"]["SetNodeNumber"];
+          "application/json": components["schemas"]["SetNodeNumber"];
+          "text/json": components["schemas"]["SetNodeNumber"];
+          "application/*+json": components["schemas"]["SetNodeNumber"];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": boolean;
+            "application/json": boolean;
+            "text/json": boolean;
+          };
+        };
+      };
+    };
+  };
+  "/Node/QueryNodes": {
+    get: {
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": (components["schemas"]["ResponseToQueryNode"])[];
+            "application/json": (components["schemas"]["ResponseToQueryNode"])[];
+            "text/json": (components["schemas"]["ResponseToQueryNode"])[];
           };
         };
       };
@@ -1575,8 +1625,6 @@ export interface components {
       $type: "OpCodeData";
     } & Omit<components["schemas"]["ICbusOpCode"], "$type"> & ({
       code?: string | null;
-      /** Format: int32 */
-      dataLength?: number;
       description?: string | null;
       group?: components["schemas"]["OpCodeGroup"];
       name?: string | null;
@@ -1584,6 +1632,8 @@ export interface components {
       number?: number;
       /** Format: int32 */
       priority?: number;
+      /** Format: int32 */
+      dataLength?: number;
       message?: components["schemas"]["ICbusStandardMessage"];
     });
     OpCodeData0: {

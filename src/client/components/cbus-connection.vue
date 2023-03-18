@@ -91,6 +91,10 @@ export default {
             this.isConnected = connectedResponse.data;
             this.dialogOpen = false;
         }
+    },
+    async mounted() {
+        const connected = await CbusConnection.status({});
+        this.isConnected = connected.data;
     }
 }
 </script>

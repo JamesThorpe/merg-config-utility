@@ -37,6 +37,7 @@ class WebSocketHandler
             _socket = ws;
             _cbusMessenger.MessageReceived += MessageReceived;
             _cbusMessenger.MessageSent += MessageSent;
+
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             while (!result.CloseStatus.HasValue) {

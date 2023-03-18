@@ -7,7 +7,6 @@
                     <v-icon icon="mdi-menu"></v-icon>
                     <v-menu activator="parent">
                         <v-list>
-                            <v-list-item title="Item 1"></v-list-item>
                             <v-list-item title="Item 2"></v-list-item>
                             <v-list-item title="Item 3"></v-list-item>
                         </v-list>
@@ -22,7 +21,7 @@
         </v-app-bar>
     
         <v-main>
-            
+            <node-list></node-list>
         </v-main>
         <status-bar />
     
@@ -33,18 +32,16 @@
 import statusbar from "./components/statusbar.vue";
 import cbusConnection from "./components/cbus-connection.vue";
 import rqnn from "./components/RQNN.vue";
+import nodeList from "./components/NodeList.vue";
 
-import { CbusConnection } from "./api/api"
+import { CbusConnection, CbusNodes } from "./api/api"
 
 export default {
     components: {
         "status-bar": statusbar,
         "cbus-connection": cbusConnection,
-        "rqnn": rqnn
-    },
-    async mounted() {
-        const ports = await CbusConnection.getComPorts({});
-        console.log("ports: ", ports.data);
+        "rqnn": rqnn,
+        "node-list": nodeList
     }
 }
 </script>

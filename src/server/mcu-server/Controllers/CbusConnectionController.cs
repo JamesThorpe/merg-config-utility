@@ -41,6 +41,12 @@ namespace mcu_server.Controllers
             return _cbusMessenger.IsOpen;
         }
 
+        [HttpGet]
+        [Route("Status")]
+        public bool GetStatus() {
+            return _cbusMessenger.IsOpen;
+        }
+
         [HttpPost]
         [Route("Send")]
         public async Task<bool> Send(ICbusOpCode msg) {

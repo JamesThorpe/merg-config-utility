@@ -25,7 +25,9 @@ namespace mcu_server
         }
 
         public override void WriteJson(JsonWriter writer, ICbusOpCode? value, JsonSerializer serializer) {
-            throw new NotImplementedException();
+            serializer.Converters.Remove(this);
+            serializer.Serialize(writer, value);
+            serializer.Converters.Add(this);
         }
     }
 }

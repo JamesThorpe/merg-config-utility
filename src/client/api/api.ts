@@ -1,5 +1,5 @@
 import { Fetcher } from "openapi-typescript-fetch";
-import { paths } from "./mcu-server";
+import { paths, components } from "./mcu-server";
 
 const fetcher = Fetcher.for<paths>();
 
@@ -25,5 +25,16 @@ export namespace CbusConnection {
     export const getComPorts = fetcher.path("/CbusConnection/GetComPorts").method("get").create();
     export const connect = fetcher.path("/CbusConnection/Connect").method("post").create();
     export const send = fetcher.path("/CbusConnection/Send").method("post").create();
+    export const status = fetcher.path("/CbusConnection/Status").method("get").create();
 }
 
+export namespace CbusNodes {
+    export const SetNodeNumber = fetcher.path("/Node/SetNodeNumber").method("post").create();
+    export const QueryNodes = fetcher.path("/Node/QueryNodes").method("get").create();
+}
+
+export namespace OpCodes {
+    export type RQNN = Omit<components["schemas"]["RequestNodeNumber"], "code"> & {code: "RQNN"};
+    export type SNN = Omit<components["schemas"]["SetNodeNumber"], "code"> & {code: "SNN"};
+    export type PNN = Omit<components["schemas"]["ResponseToQueryNode"], "code"> & {code: "PNN"};
+}

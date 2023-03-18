@@ -22,8 +22,7 @@
 <script lang="ts">
 import { Socket } from '../api/socket';
 import { components } from '../api/mcu-server';
-import {OpCodes} from "../api/socket-messages";
-import { CbusConnection } from "../api/api";
+import { CbusNodes, OpCodes } from "../api/api";
 export default {
     data() {
         return {
@@ -46,9 +45,9 @@ export default {
                 code: "SNN",
                 nodeNumber: this.nodeNumber
             };
-            if (await CbusConnection.send(snn)) {
+            if (await CbusNodes.SetNodeNumber(snn)) {
                 this.rqnnOpen = false;
-            }            
+            }
         }
     }
 }
