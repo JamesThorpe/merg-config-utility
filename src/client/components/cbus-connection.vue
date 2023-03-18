@@ -30,7 +30,7 @@
                     </div>
                 </v-form>
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions class="justify-end">
                 <v-btn @click="dialogOpen = false">Close</v-btn>
                 <v-btn color="primary" @click="connect">Connect</v-btn>
             </v-card-actions>
@@ -89,6 +89,7 @@ export default {
                 } : undefined
             });
             this.isConnected = connectedResponse.data;
+            this.dialogOpen = false;
         }
     }
 }

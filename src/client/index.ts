@@ -10,6 +10,8 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 import { setBaseUrl } from "./api/api";
 setBaseUrl("http://localhost:5290");
 
+import { Socket } from "./api/socket";
+
 import mcu from './root.vue'
 
 const vuetify = createVuetify({
@@ -32,3 +34,9 @@ createApp({
 })
  .use(vuetify)
  .mount("#app");
+
+ Socket.open("ws://localhost:5290/ws");
+
+ Socket.standardMessageReceived.on(h => {
+  console.log("Parsed message: ", h.code);
+ });

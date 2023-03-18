@@ -26,18 +26,21 @@
         </v-main>
         <status-bar />
     
+        <rqnn></rqnn>
     </v-app>
 </template>
 <script lang="ts">
 import statusbar from "./components/statusbar.vue";
-import cbusConnection from "./components/cbus-connection.vue"
+import cbusConnection from "./components/cbus-connection.vue";
+import rqnn from "./components/RQNN.vue";
 
 import { CbusConnection } from "./api/api"
 
 export default {
     components: {
         "status-bar": statusbar,
-        "cbus-connection": cbusConnection
+        "cbus-connection": cbusConnection,
+        "rqnn": rqnn
     },
     async mounted() {
         const ports = await CbusConnection.getComPorts({});

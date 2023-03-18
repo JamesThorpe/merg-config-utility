@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using Asgard.Communications;
 using Asgard.Data;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 class WebSocketHandler
 {
@@ -54,12 +55,10 @@ class WebSocketHandler
 
     private async void MessageSent(object? sender, CbusMessageEventArgs e)
     {
-        if (e.Message is ICbusStandardMessage msg)
-        {
+        if (e.Message is ICbusStandardMessage msg) {
             msg.TryGetOpCode(out var opc);
-            await SendMessage(new { Type = "cbus", Message = e.Message, OpCode = opc, Direction = "sent" });
-        } else
-        {
+            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Direction = "sent" });
+        } else {
             await SendMessage(new { Type = "cbus", Message = e.Message, Direction = "sent" });
         }
         
@@ -67,17 +66,23 @@ class WebSocketHandler
 
     private async void MessageReceived(object? sender, CbusMessageEventArgs e)
     {
-        if (e.Message is ICbusStandardMessage msg)
-        {
+        if (e.Message is ICbusStandardMessage msg) {
             msg.TryGetOpCode(out var opc);
-            await SendMessage(new { Type = "cbus", Message = e.Message, OpCode = opc, Direction = "received" });
+            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Direction = "received" });
+        } else {
+            await SendMessage(new { Type = "cbus", Message = e.Message, Direction = "received" });
         }
-        await SendMessage(new { Type = "cbus", Message = e.Message, Direction = "received" });
     }
+
+    private static JsonSerializerSettings settings = new JsonSerializerSettings {
+        ContractResolver = new DefaultContractResolver { 
+            NamingStrategy = new CamelCaseNamingStrategy() 
+        }
+    };
 
     private async Task SendMessage(object msg)
     {
-        var s = JsonConvert.SerializeObject(msg);
+        var s = JsonConvert.SerializeObject(msg, settings);
         var sock = _socket;
         if (sock != null) {
             await sock.SendAsync(Encoding.UTF8.GetBytes(s), WebSocketMessageType.Text, true, CancellationToken.None);

@@ -1,3 +1,4 @@
+using Asgard.Data;
 using Asgard.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,10 @@ builder.Services.AddCors(co =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.SchemaFilter<EnumSchemaFilter>();
+    c.DocumentFilter<PolymorphismDocumentFilter<ICbusOpCode>>();
+    c.SchemaFilter<PolymorphismSchemaFilter<ICbusOpCode>>();
+    
+    
 });
 builder.Services.AddAsgard(builder.Configuration.GetSection("asgard"));
 
