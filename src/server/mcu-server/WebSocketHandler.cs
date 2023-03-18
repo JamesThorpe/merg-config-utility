@@ -58,7 +58,7 @@ class WebSocketHandler
     {
         if (e.Message is ICbusStandardMessage msg) {
             msg.TryGetOpCode(out var opc);
-            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Direction = "sent" });
+            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Text = opc.ToString(), Direction = "sent" });
         } else {
             await SendMessage(new { Type = "cbus", Message = e.Message, Direction = "sent" });
         }
@@ -69,7 +69,7 @@ class WebSocketHandler
     {
         if (e.Message is ICbusStandardMessage msg) {
             msg.TryGetOpCode(out var opc);
-            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Direction = "received" });
+            await SendMessage(new { Type = "cbus-standard", Message = e.Message, OpCode = opc, Text = opc.ToString(), Direction = "received" });
         } else {
             await SendMessage(new { Type = "cbus", Message = e.Message, Direction = "received" });
         }

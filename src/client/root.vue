@@ -22,6 +22,7 @@
     
         <v-main>
             <node-list></node-list>
+            <messages></messages>
         </v-main>
         <status-bar />
     
@@ -33,6 +34,7 @@ import statusbar from "./components/statusbar.vue";
 import cbusConnection from "./components/cbus-connection.vue";
 import rqnn from "./components/RQNN.vue";
 import nodeList from "./components/NodeList.vue";
+import messages from "./components/messages.vue";
 
 import { CbusConnection, CbusNodes } from "./api/api"
 
@@ -51,7 +53,8 @@ console.log("menu ", i);
         "status-bar": statusbar,
         "cbus-connection": cbusConnection,
         "rqnn": rqnn,
-        "node-list": nodeList
+        "node-list": nodeList,
+        "messages": messages
     }
 }
 </script>

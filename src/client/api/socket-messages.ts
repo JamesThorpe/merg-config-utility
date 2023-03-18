@@ -6,5 +6,6 @@ export interface cbusStandardMessage {
     type: "cbus-standard",
     message: any,
     opCode: OpCode,
-    direction: "received" | "sent"
+    direction: "received" | "sent",
+    text: string
 }

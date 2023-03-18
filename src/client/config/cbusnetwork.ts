@@ -46,8 +46,8 @@ export const Network = reactive({
 
     watchForNodes() {
         Socket.standardMessageReceived.on((h) => {
-            if (h.code !== "PNN") return;
-            const msg = h as OpCodes.PNN;
+            if (h.OpCode.code !== "PNN") return;
+            const msg = h.OpCode as OpCodes.PNN;
             this.addNode(msg);
         });
     }

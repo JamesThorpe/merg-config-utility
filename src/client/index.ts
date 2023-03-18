@@ -36,7 +36,3 @@ createApp({
  .mount("#app");
 
  Socket.open("ws://localhost:5290/ws");
-
- Socket.standardMessageReceived.on(h => {
-  console.log("Parsed message: ", h.code);
- });

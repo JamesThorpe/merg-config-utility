@@ -1,10 +1,17 @@
 import { ILiteEvent, LiteEvent } from "../util/LiteEvent";
 import { cbusStandardMessage, OpCode } from "./socket-messages";
 
+
+
 let socket: WebSocket;
 
-let _standardMessageReceived = new LiteEvent<OpCode>();
-let _standardMessageSent = new LiteEvent<OpCode>();
+export type OpCodeMessage = {
+    OpCode: OpCode,
+    Text: string
+};
+
+let _standardMessageReceived = new LiteEvent<OpCodeMessage>();
+let _standardMessageSent = new LiteEvent<OpCodeMessage>();
 
 function _open(url: string):void {
      socket = new WebSocket(url);
@@ -17,12 +24,12 @@ function _message(ev: MessageEvent<any>):void {
     switch (msg.type) {
         case "cbus-standard": {
             const standardMsg = msg as cbusStandardMessage;
-            switch (standardMsg.direction) {
+                        switch (standardMsg.direction) {
                 case "received":
-                    _standardMessageReceived.trigger(standardMsg.opCode);
+                    _standardMessageReceived.trigger({OpCode: standardMsg.opCode, Text: msg.text});
                     break;
                 case "sent":
-                    _standardMessageSent.trigger(standardMsg.opCode);
+                    _standardMessageSent.trigger({OpCode: standardMsg.opCode, Text: msg.text});
                     break;
             }
         }

@@ -21,7 +21,6 @@
 </template>
 <script lang="ts">
 import { Socket } from '../api/socket';
-import { components } from '../api/mcu-server';
 import { CbusNodes, OpCodes } from "../api/api";
 export default {
     data() {
@@ -32,9 +31,8 @@ export default {
     },
     beforeMount() {
         Socket.standardMessageReceived.on((h) => {
-            if (h.code !== "RQNN") return;
-            const msg = h as OpCodes.RQNN;
-           
+            if (h.OpCode.code !== "RQNN") return;
+            const msg = h.OpCode as OpCodes.RQNN;
             this.rqnnOpen = true;
         });
     },
