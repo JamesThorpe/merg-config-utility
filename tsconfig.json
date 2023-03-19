@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "sourceMap": true,
-        "target": "ES5",
-        "noImplicitThis": true
+        "target": "ES5"
     }
 }
