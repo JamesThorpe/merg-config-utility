@@ -1,5 +1,5 @@
 <template>
-        <v-btn size="x-small" prepend-icon="mdi-pencil" @click="dialogOpen = true">
+        <v-btn size="x-small" prepend-icon="mdi-pencil" @click.stop="editNode">
             Edit Node
         </v-btn>
 
@@ -15,6 +15,10 @@
             </template>
             <v-card-text>
                 <v-text-field v-model="node.name" label="Node Name"></v-text-field>
+                NVs:
+                <div v-for="(_, i) in node.variables">
+                    <v-text-field v-model="node.variables[i]"></v-text-field>
+                </div>
             </v-card-text>
             <v-card-actions class="justify-end">
                 <v-btn color="primary" @click="dialogOpen=false">Ok</v-btn>
@@ -32,6 +36,12 @@ export default {
     data() {
         return {
             dialogOpen: false
+        }
+    },
+    methods: {
+        async editNode() {
+            await this.node.loadVariables()
+            this.dialogOpen = true;
         }
     }
 }

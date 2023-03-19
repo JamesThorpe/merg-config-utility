@@ -38,10 +38,11 @@ class WebSocketHandler
             _cbusMessenger.MessageReceived += MessageReceived;
             _cbusMessenger.MessageSent += MessageSent;
 
+            // Currently just loop, read and ignore any messages received over the socket,
+            // it's only being used to send events to the client.
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             while (!result.CloseStatus.HasValue) {
-                //await ws.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
                 result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             

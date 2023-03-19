@@ -113,6 +113,45 @@ export interface paths {
       };
     };
   };
+  "/Node/ReadNodeParameters/{nodeNumber}": {
+    get: {
+      parameters: {
+        path: {
+          nodeNumber: number;
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": (number)[];
+            "application/json": (number)[];
+            "text/json": (number)[];
+          };
+        };
+      };
+    };
+  };
+  "/Node/ReadNodeVariables/{nodeNumber}/{variableCount}": {
+    get: {
+      parameters: {
+        path: {
+          nodeNumber: number;
+          variableCount: number;
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": (number)[];
+            "application/json": (number)[];
+            "text/json": (number)[];
+          };
+        };
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;

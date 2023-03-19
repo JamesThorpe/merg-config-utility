@@ -31,6 +31,8 @@ export namespace CbusConnection {
 export namespace CbusNodes {
     export const SetNodeNumber = fetcher.path("/Node/SetNodeNumber").method("post").create();
     export const QueryNodes = fetcher.path("/Node/QueryNodes").method("get").create();
+    export const ReadNodeParameters = fetcher.path("/Node/ReadNodeParameters/{nodeNumber}").method("get").create();
+    export const ReadNodeVariables = fetcher.path("/Node/ReadNodeVariables/{nodeNumber}/{variableCount}").method("get").create();
 }
 
 export namespace OpCodes {

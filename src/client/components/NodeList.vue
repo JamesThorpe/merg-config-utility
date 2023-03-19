@@ -10,6 +10,8 @@
                     <th>Node Number</th>
                     <th>Manufacturer ID</th>
                     <th>Module ID</th>
+                    <th>Version</th>
+                    <th>NVs</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -23,6 +25,8 @@
                 <td>{{ node.nodeNumber }}</td>
                 <td>{{ node.manufacturerId }}</td>
                 <td>{{ node.moduleId }}</td>
+                <td>{{ node.version }}</td>
+                <td>{{ node.supportedNodeVariables }}</td>
                 <td>
                     <v-tooltip text="Indicates whether this is a consumer node" location="bottom">
                         <template v-slot:activator="{props}">
