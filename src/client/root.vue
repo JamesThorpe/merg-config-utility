@@ -7,8 +7,8 @@
                     <v-icon icon="mdi-menu"></v-icon>
                     <v-menu activator="parent">
                         <v-list>
-                            <v-list-item title="Item 1" value="1"></v-list-item>
-                            <v-list-item title="Item 2" value="2"></v-list-item>
+                            <v-list-item title="Save Config" value="1" @click="save"></v-list-item>
+                            <v-list-item title="Load Config" value="2" @click="load"></v-list-item>
                         </v-list>
                     </v-menu>
                 </v-btn>
@@ -37,24 +37,47 @@ import nodeList from "./components/NodeList.vue";
 import messages from "./components/messages.vue";
 
 import { CbusConnection, CbusNodes } from "./api/api"
+import { Network } from "./config/cbusnetwork";
 
 export default {
-    data() {
-        return {
-            item: null
-        }
-    },
-    watch: {
-        item(i){
-console.log("menu ", i);
-        }
-    },
     components: {
         "status-bar": statusbar,
         "cbus-connection": cbusConnection,
         "rqnn": rqnn,
         "node-list": nodeList,
         "messages": messages
+    },
+    methods: {
+        save() {
+            const data = Network.getData();
+            const e = document.createElement("a");
+            e.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 4)));
+            e.setAttribute("download", "fcu.json");
+            e.style.display = "none";
+            document.body.appendChild(e);
+            e.click();
+            document.body.removeChild(e);
+        },
+
+        load() {
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            
+            input.onchange = (e) => {
+                    var input = e.target as HTMLInputElement;
+
+                    var reader = new FileReader();
+                    reader.onload = () => {
+                        const data = JSON.parse(reader.result as string);
+                        Network.loadData(data);
+                    };
+                    reader.readAsText(input.files[0]);
+            }
+
+            input.click(); // opening dialog
+            
+            return false; // avoiding navigation
+        }
     }
 }
 </script>

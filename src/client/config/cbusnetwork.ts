@@ -14,6 +14,10 @@ export type CbusNode = {
 
 };
 
+export interface NetworkData {
+    nodes: CbusNode[]
+};
+
 export const Network = reactive({
     nodes: [] as CbusNode[],
    
@@ -50,7 +54,18 @@ export const Network = reactive({
             const msg = h.OpCode as OpCodes.PNN;
             this.addNode(msg);
         });
+    },
+
+    getData():NetworkData {
+        return {
+            nodes: this.nodes
+        }
+    },
+
+    loadData(data: NetworkData): void {
+        this.nodes = data.nodes;
     }
+    
 });
 
 Network.watchForNodes();

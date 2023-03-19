@@ -11,7 +11,7 @@
                     <th>Manufacturer ID</th>
                     <th>Module ID</th>
                     <th></th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +45,10 @@
                         </template>
                     </v-tooltip>
                 </td>
+                <td>
+                    <node-editor :node="node"></node-editor>
+
+                </td>
             </tr>
             </tbody>
         </v-table>
@@ -58,18 +62,24 @@
 <script lang="ts">
 
 import { Network, CbusNode } from "../config/cbusnetwork";
+import NodeEditor from "./NodeEditor.vue";
 
 interface NodeListData {
     network: typeof Network,
-    loading: boolean
+    loading: boolean,
+    nodeToEdit: CbusNode
 }
 
 export default {
     data() : NodeListData {
         return {
             network: Network,
-            loading: false
+            loading: false,
+            nodeToEdit: null
         }
+    },
+    components: {
+        "node-editor": NodeEditor
     },
     methods: {
         async refresh() {
@@ -79,6 +89,9 @@ export default {
         },
         selectNode(node: CbusNode):void {
             console.log("Select node", node.nodeNumber);
+        },
+        editNode(node: CbusNode):void {
+            this.nodeToEdit = node;
         }
     }
 }
