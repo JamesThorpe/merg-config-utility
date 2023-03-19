@@ -10,6 +10,9 @@ export class CANACC4 implements cbusModule {
     get name(): string {
         return "CANACC4";
     }
+    get expectWrack(): boolean {
+        return false;
+    }
     get configurationTabs(): configurationTab[] {
         return [
             {

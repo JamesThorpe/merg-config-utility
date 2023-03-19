@@ -67,10 +67,11 @@ export class CbusNode {
         this.variables = response.data.map((v,i) => ({index: i + 1, value: v}));
     }
 
-    async saveVariables() {
+    async saveVariables(expectWrack: boolean) {
         await CbusNodes.UpdateNodeVariables({
             nodeNumber: this.nodeNumber,
-            variables: this.variables.map(v => (v.value))
+            variables: this.variables.map(v => (v.value)),
+            expectWrack: expectWrack
         });
     }
 };

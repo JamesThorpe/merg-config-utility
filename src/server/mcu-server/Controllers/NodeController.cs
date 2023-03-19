@@ -11,9 +11,11 @@ namespace mcu_server.Controllers
     public class NodeController:ControllerBase
     {
         private readonly MessageManager messageManager;
+        private readonly ICbusMessenger cbusMessenger;
 
-        public NodeController(MessageManager messageManager) {
+        public NodeController(MessageManager messageManager, ICbusMessenger cbusMessenger) {
             this.messageManager = messageManager;
+            this.cbusMessenger = cbusMessenger;
         }
 
 
@@ -83,7 +85,12 @@ namespace mcu_server.Controllers
                     NVIndex = i,
                     Value = variable
                 };
-                await messageManager.SendMessageWaitForReply<WriteAcknowledge>(request, (r) => r.NodeNumber == request.NodeNumber);
+                if (nvr.ExpectWrack) {
+                    await messageManager.SendMessageWaitForReply<WriteAcknowledge>(request, (r) => r.NodeNumber == request.NodeNumber);
+                } else {
+                    await cbusMessenger.SendMessage(request);
+                    await Task.Delay(50);
+                }
                 
             }
             return true;

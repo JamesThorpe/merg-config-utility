@@ -2960,6 +2960,7 @@ export interface components {
       /** Format: int32 */
       nodeNumber?: number;
       variables?: (number)[] | null;
+      expectWrack?: boolean;
     };
     /**
      * Format: int32 

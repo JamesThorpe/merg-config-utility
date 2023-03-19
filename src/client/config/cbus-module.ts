@@ -23,6 +23,7 @@ export type cbusModule = {
     get manufacturerId(): number;
     get moduleId(): number;
     get name(): string;
-    get configurationTabs(): configurationTab[]
+    get configurationTabs(): configurationTab[];
+    get expectWrack(): boolean;
     //TODO: add support for firmware versions
 };

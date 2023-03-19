@@ -71,7 +71,8 @@ export default {
             if (this.config === undefined) {
                 this.config = {
                     name: "Unknown",
-                    configurationTabs: []
+                    configurationTabs: [],
+                    expectWrack: true
                 }
             }
             this.dialogOpen = true;
@@ -80,7 +81,7 @@ export default {
             await this.node.loadVariables();
         },
         async saveNode() {
-            await this.node.saveVariables();
+            await this.node.saveVariables(this.config.expectWrack);
             this.dialogOpen = false;
         }
     }
