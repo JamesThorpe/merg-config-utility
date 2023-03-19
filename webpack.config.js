@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
-const { VuetifyPlugin } = require("webpack-plugin-vuetify");
+
 
 const outputPath = path.resolve(__dirname, "dist");
 
@@ -16,8 +16,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: "src/client/index.html"
         }),
-        new VueLoaderPlugin(),
-        new VuetifyPlugin()
+        new VueLoaderPlugin()
     ],
     devtool: "source-map",
     devServer: {
