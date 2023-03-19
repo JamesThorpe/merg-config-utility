@@ -38,6 +38,7 @@
     </v-dialog>
 </template>
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { CbusConnection } from '../api/api'
 
 interface Data {
@@ -49,7 +50,7 @@ interface Data {
     tcpHost: string,
     tcpPort: number
 }
-export default {
+export default defineComponent({
     data(): Data {
         return {
             isConnected: false,
@@ -96,7 +97,7 @@ export default {
         const connected = await CbusConnection.status({});
         this.isConnected = connected.data;
     }
-}
+});
 </script>
 <style type="scss" scoped>
 .connected {

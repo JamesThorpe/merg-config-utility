@@ -1,21 +1,25 @@
 import { CbusNodes } from "../api/api";
-import { NodeVariable } from "./NodeVariable";
+import { NodeVariable } from "./node-variable";
 
 
 export class CbusNode {
-    name: string;
-    nodeNumber: number;
-    manufacturerId: number;
-    moduleId: number;
-    isConsumer: boolean;
-    isProducer: boolean;
-    isFlim: boolean;
-    isBootloadable: boolean;
+    name: string = "Unknown";
+    nodeNumber: number = -1;
+    manufacturerId: number = -1;
+    moduleId: number = -1;
+    isConsumer: boolean = false;
+    isProducer: boolean = false;
+    isFlim: boolean = false;
+    isBootloadable: boolean = false;
     params: number[] = [];
     variables: NodeVariable[] = [];
 
     getVariable(nv: number): NodeVariable {
-        return this.variables.find(v => v.index === nv);
+        const v = this.variables.find(v => v.index === nv);
+        if (v === undefined) {
+            throw new Error("NV index is out of range");
+        }
+        return v;
     }
 
     get paramManufacturerId(): number {

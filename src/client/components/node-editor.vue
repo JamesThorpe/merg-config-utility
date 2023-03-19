@@ -46,27 +46,30 @@
     </v-dialog>
 </template>
 <script lang="ts">
-import { PropType } from 'vue';
-import { CbusNode } from '../config/CbusNode';
+import { defineComponent } from 'vue';
+import { CbusNode } from '../config/cbus-node';
 import { CbusModule } from '../config/cbus-module';
-import { Network } from '../config/Network';
+import { Network } from '../config/network';
 import { UnknownModule } from "../config/unknown-module";
 
 interface Data {
     dialogOpen: boolean,
-    tab: string,
+    tab: string | undefined,
     config: CbusModule
 }
 
-export default {
+export default defineComponent({
     props: {
-        node: Object as PropType<CbusNode>
+        node: {
+            type: CbusNode,
+            required: true
+        }
     },
     data():Data {
         return {
             dialogOpen: false,
-            tab: null,
-            config: null
+            tab: undefined,
+            config: new UnknownModule()
         }
     },
     methods: {
@@ -74,21 +77,23 @@ export default {
             //TODO: figure out if we want to override saved values
             await this.node.loadVariables();
 
-            this.config = Network.configs.find((c) => c.manufacturerId === this.node.manufacturerId && c.moduleId === this.node.moduleId);
-            if (this.config === undefined) {
+            const foundConfig = Network.configs.find((c) => c.manufacturerId === this.node.manufacturerId && c.moduleId === this.node.moduleId);
+            if (foundConfig === undefined) {
                 this.config = new UnknownModule();
+            } else {
+                this.config = foundConfig;
             }
             this.dialogOpen = true;
         },
         async readNode() {
-            await this.node.loadVariables();
+            await this.node?.loadVariables();
         },
         async saveNode() {
             await this.node.saveVariables(this.config.expectWrack);
             this.dialogOpen = false;
         }
     }
-}
+});
 </script>
 <style type="scss" scoped>
 .nvList {

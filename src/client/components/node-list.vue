@@ -64,23 +64,21 @@
     </v-card>
 </template>
 <script lang="ts">
-
-import { Network } from "../config/Network";
-import { CbusNode } from "../config/CbusNode";
+import { defineComponent } from "vue";
+import { Network } from "../config/network";
+import { CbusNode } from "../config/cbus-node";
 import NodeEditor from "./node-editor.vue";
 
 interface Data {
     network: typeof Network,
-    loading: boolean,
-    nodeToEdit: CbusNode
+    loading: boolean
 }
 
-export default {
+export default defineComponent({
     data() : Data {
         return {
             network: Network,
-            loading: false,
-            nodeToEdit: null
+            loading: false
         }
     },
     components: {
@@ -94,12 +92,9 @@ export default {
         },
         selectNode(node: CbusNode):void {
             console.log("Select node", node.nodeNumber);
-        },
-        editNode(node: CbusNode):void {
-            this.nodeToEdit = node;
         }
     }
-}
+});
 </script>
 <style type="scss">
 .iconOn {

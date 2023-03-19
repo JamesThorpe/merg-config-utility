@@ -37,7 +37,7 @@ import nodeList from "./components/node-list.vue";
 import messages from "./components/cbus-messages.vue";
 
 import { CbusConnection } from "./api/api"
-import { Network } from "./config/Network";
+import { Network } from "./config/network";
 
 
 
@@ -73,7 +73,11 @@ export default {
                         const data = JSON.parse(reader.result as string);
                         Network.loadData(data);
                     };
-                    reader.readAsText(input.files[0]);
+                    if (input.files === null) {
+                        return;
+                    }
+                    const f = input.files[0];
+                    reader.readAsText(f);
             }
 
             input.click(); // opening dialog

@@ -12,6 +12,7 @@
     </v-card>
 </template>
 <script lang="ts">
+import { defineComponent } from "vue";
 import { Socket, OpCodeMessage } from "../api/socket";
 
 type RecentMessage = {
@@ -23,7 +24,7 @@ interface Data {
     recent: RecentMessage[]
 }
 
-export default {
+export default defineComponent({
     data(): Data {
         return {
             recent: []
@@ -45,7 +46,7 @@ export default {
             }
         }
     }
-}
+});
 </script>
 <style type="scss" scoped>
 .message {

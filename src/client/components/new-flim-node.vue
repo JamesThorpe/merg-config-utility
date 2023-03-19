@@ -20,7 +20,7 @@
     </v-dialog>
 </template>
 <script lang="ts">
-
+import { defineComponent } from 'vue';
 import { Socket } from '../api/socket';
 import { CbusNodes, OpCodes } from "../api/api";
 
@@ -29,7 +29,7 @@ interface Data {
     nodeNumber: number
 }
 
-export default {
+export default defineComponent({
     data(): Data {
         return {
             rqnnOpen: false,
@@ -55,5 +55,5 @@ export default {
             }
         }
     }
-};
+});
 </script>
