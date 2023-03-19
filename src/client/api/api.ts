@@ -33,6 +33,7 @@ export namespace CbusNodes {
     export const QueryNodes = fetcher.path("/Node/QueryNodes").method("get").create();
     export const ReadNodeParameters = fetcher.path("/Node/ReadNodeParameters/{nodeNumber}").method("get").create();
     export const ReadNodeVariables = fetcher.path("/Node/ReadNodeVariables/{nodeNumber}/{variableCount}").method("get").create();
+    export const UpdateNodeVariables = fetcher.path("/Node/UpdateNodeVariables").method("post").create();
 }
 
 export namespace OpCodes {

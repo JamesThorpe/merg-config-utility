@@ -12,7 +12,10 @@ export class CbusNode {
     isFlim: boolean;
     isBootloadable: boolean;
     params: number[] = [];
-    variables: number[] = [];
+    variables: {
+        index: number,
+        value: number
+    }[] = [];
 
     get paramManufacturerId():number {
         if (this.params[1] !== undefined) {
@@ -53,7 +56,14 @@ export class CbusNode {
             nodeNumber: this.nodeNumber,
             variableCount: this.supportedNodeVariables
         });
-        this.variables = response.data;
+        this.variables = response.data.map((v,i) => ({index: i + 1, value: v}));
+    }
+
+    async saveVariables() {
+        await CbusNodes.UpdateNodeVariables({
+            nodeNumber: this.nodeNumber,
+            variables: this.variables.map(v => (v.value))
+        });
     }
 
 };
@@ -114,7 +124,18 @@ export const Network = reactive({
     loadData(data: NetworkData): void {
         this.clearNodes();
         data.nodes.forEach(node => {
-            this.nodes.push(node);
+            const n = new CbusNode();
+            n.name = node.name;
+            n.nodeNumber = node.nodeNumber;
+            n.manufacturerId = node.manufacturerId;
+            n.moduleId = node.moduleId;
+            n.isConsumer = node.isConsumer;
+            n.isProducer = node.isProducer;
+            n.isFlim = node.isFlim;
+            n.isBootloadable = node.isBootloadable;
+            n.params = node.params;
+
+            this.nodes.push(n);
         });
     }
     

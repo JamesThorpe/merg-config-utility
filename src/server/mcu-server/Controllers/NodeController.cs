@@ -1,5 +1,6 @@
 ﻿using Asgard.Communications;
 using Asgard.Data;
+using mcu_server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mcu_server.Controllers
@@ -60,7 +61,7 @@ namespace mcu_server.Controllers
         [Route("ReadNodeVariables/{nodeNumber}/{variableCount}")]
         public async Task<IEnumerable<byte>> ReadNodeVariables(ushort nodeNumber, byte variableCount) {
             var nodeVariables = new List<byte>();
-            for (byte i = 1; i < variableCount; i++) {
+            for (byte i = 1; i <= variableCount; i++) {
                 var request = new RequestReadOfANodeVariable {
                     NodeNumber = nodeNumber,
                     NVIndex = i
@@ -69,6 +70,23 @@ namespace mcu_server.Controllers
                 nodeVariables.Add(reply.Value);
             }
             return nodeVariables;
+        }
+
+        [HttpPost]
+        [Route("UpdateNodeVariables/")]
+        public async Task<bool> UpdateNodeVariables(UpdateNodeVariablesRequest nvr) {
+            byte i = 0;
+            foreach (var variable in nvr.Variables) {
+                i++;
+                var request = new SetANodeVariable {
+                    NodeNumber = nvr.NodeNumber,
+                    NVIndex = i,
+                    Value = variable
+                };
+                await messageManager.SendMessageWaitForReply<WriteAcknowledge>(request, (r) => r.NodeNumber == request.NodeNumber);
+                
+            }
+            return true;
         }
     }
 }

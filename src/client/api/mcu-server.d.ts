@@ -152,6 +152,28 @@ export interface paths {
       };
     };
   };
+  "/Node/UpdateNodeVariables": {
+    post: {
+      requestBody?: {
+        content: {
+          "application/json-patch+json": components["schemas"]["UpdateNodeVariablesRequest"];
+          "application/json": components["schemas"]["UpdateNodeVariablesRequest"];
+          "text/json": components["schemas"]["UpdateNodeVariablesRequest"];
+          "application/*+json": components["schemas"]["UpdateNodeVariablesRequest"];
+        };
+      };
+      responses: {
+        /** @description Success */
+        200: {
+          content: {
+            "text/plain": boolean;
+            "application/json": boolean;
+            "text/json": boolean;
+          };
+        };
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -2934,6 +2956,11 @@ export interface components {
       /** Format: int32 */
       eventNumber?: number;
     });
+    UpdateNodeVariablesRequest: {
+      /** Format: int32 */
+      nodeNumber?: number;
+      variables?: (number)[] | null;
+    };
     /**
      * Format: int32 
      * @example 1: Sun, 2: Mon, 3: Tue, 4: Wed, 5: Thu, 6: Fri, 7: Sat 
