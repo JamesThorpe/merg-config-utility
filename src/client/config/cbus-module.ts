@@ -20,8 +20,9 @@ export type configurationTab = {
 };
 
 export type cbusModule = {
-    manufacturerId: number,
-    moduleId: number,
-    name: string
-    configuration: configurationTab[];
+    get manufacturerId(): number;
+    get moduleId(): number;
+    get name(): string;
+    get configurationTabs(): configurationTab[]
+    //TODO: add support for firmware versions
 };

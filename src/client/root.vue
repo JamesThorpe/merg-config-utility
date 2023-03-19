@@ -39,6 +39,8 @@ import messages from "./components/messages.vue";
 import { CbusConnection, CbusNodes } from "./api/api"
 import { Network } from "./config/cbusnetwork";
 
+
+
 export default {
     components: {
         "status-bar": statusbar,
@@ -78,6 +80,9 @@ export default {
             
             return false; // avoiding navigation
         }
+    },
+    async mounted() {
+        await Network.loadConfigs();
     }
 }
 </script>

@@ -1,6 +1,13 @@
 import { OpCodes, CbusNodes } from "../api/api";
 import { Socket } from "../api/socket";
 import { reactive } from "vue";
+import { CANACC4 } from "./canacc4";
+import { cbusModule } from "./cbus-module";
+
+export type NodeVariable = {
+    index: number,
+    value: number
+}
 
 export class CbusNode {
     name: string;
@@ -12,10 +19,11 @@ export class CbusNode {
     isFlim: boolean;
     isBootloadable: boolean;
     params: number[] = [];
-    variables: {
-        index: number,
-        value: number
-    }[] = [];
+    variables: NodeVariable[] = [];
+
+    getVariable(nv: number):NodeVariable {
+        return this.variables.find(v => v.index === nv);
+    }
 
     get paramManufacturerId():number {
         if (this.params[1] !== undefined) {
@@ -65,7 +73,6 @@ export class CbusNode {
             variables: this.variables.map(v => (v.value))
         });
     }
-
 };
 
 export interface NetworkData {
@@ -74,6 +81,7 @@ export interface NetworkData {
 
 export const Network = reactive({
     nodes: [] as CbusNode[],
+    configs: [] as cbusModule[],
    
     clearNodes() {
         this.nodes = [];
@@ -134,9 +142,12 @@ export const Network = reactive({
             n.isFlim = node.isFlim;
             n.isBootloadable = node.isBootloadable;
             n.params = node.params;
-
             this.nodes.push(n);
         });
+    },
+    async loadConfigs() {
+        this.configs = [];
+        this.configs.push(new CANACC4());
     }
     
 });
