@@ -20,10 +20,17 @@
     </v-dialog>
 </template>
 <script lang="ts">
+
 import { Socket } from '../api/socket';
 import { CbusNodes, OpCodes } from "../api/api";
+
+interface Data {
+    rqnnOpen: boolean,
+    nodeNumber: number
+}
+
 export default {
-    data() {
+    data(): Data {
         return {
             rqnnOpen: false,
             nodeNumber: 0
@@ -48,5 +55,5 @@ export default {
             }
         }
     }
-}
+};
 </script>

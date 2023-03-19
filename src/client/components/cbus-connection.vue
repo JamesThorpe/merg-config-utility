@@ -40,7 +40,7 @@
 <script lang="ts">
 import { CbusConnection } from '../api/api'
 
-interface CbusConnectionData {
+interface Data {
     isConnected: boolean,
     dialogOpen: boolean,
     availablePorts: string[],
@@ -50,7 +50,7 @@ interface CbusConnectionData {
     tcpPort: number
 }
 export default {
-    data(): CbusConnectionData {
+    data(): Data {
         return {
             isConnected: false,
             dialogOpen: false,

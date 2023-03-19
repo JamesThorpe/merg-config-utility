@@ -32,12 +32,12 @@
 <script lang="ts">
 import statusbar from "./components/statusbar.vue";
 import cbusConnection from "./components/cbus-connection.vue";
-import rqnn from "./components/RQNN.vue";
-import nodeList from "./components/NodeList.vue";
-import messages from "./components/messages.vue";
+import rqnn from "./components/new-flim-node.vue";
+import nodeList from "./components/node-list.vue";
+import messages from "./components/cbus-messages.vue";
 
-import { CbusConnection, CbusNodes } from "./api/api"
-import { Network } from "./config/cbusnetwork";
+import { CbusConnection } from "./api/api"
+import { Network } from "./config/Network";
 
 
 

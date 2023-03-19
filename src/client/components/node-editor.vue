@@ -47,19 +47,26 @@
 </template>
 <script lang="ts">
 import { PropType } from 'vue';
-import { CbusNode } from '../config/cbusnetwork';
-import { cbusModule } from '../config/cbus-module';
-import { Network } from '../config/cbusnetwork';
+import { CbusNode } from '../config/CbusNode';
+import { CbusModule } from '../config/cbus-module';
+import { Network } from '../config/Network';
+import { UnknownModule } from "../config/unknown-module";
+
+interface Data {
+    dialogOpen: boolean,
+    tab: string,
+    config: CbusModule
+}
 
 export default {
     props: {
         node: Object as PropType<CbusNode>
     },
-    data() {
+    data():Data {
         return {
             dialogOpen: false,
             tab: null,
-            config: null as cbusModule
+            config: null
         }
     },
     methods: {
@@ -69,11 +76,7 @@ export default {
 
             this.config = Network.configs.find((c) => c.manufacturerId === this.node.manufacturerId && c.moduleId === this.node.moduleId);
             if (this.config === undefined) {
-                this.config = {
-                    name: "Unknown",
-                    configurationTabs: [],
-                    expectWrack: true
-                }
+                this.config = new UnknownModule();
             }
             this.dialogOpen = true;
         },

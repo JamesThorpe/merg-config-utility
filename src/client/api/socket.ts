@@ -1,5 +1,5 @@
 import { ILiteEvent, LiteEvent } from "../util/LiteEvent";
-import { cbusStandardMessage, OpCode } from "./socket-messages";
+import { CbusStandardMessage, OpCode } from "./socket-messages";
 
 
 
@@ -19,11 +19,10 @@ function _open(url: string):void {
 };
 
 function _message(ev: MessageEvent<any>):void {
-    //{"Type":"cbus","Message":{"Data":"kQEBAAU=","IsExtended":false,"Length":5},"OpCode":{"Code":"ACOF","Description":"Indicates an ‘OFF’ event using the full event number of 4 bytes. (long event).","Group":1,"Name":"Accessory Off","Number":145,"Priority":3,"NodeNumber":257,"EventNumber":5,"IsLongEvent":true,"IsShortEvent":false,"IsOnEvent":false,"IsOffEvent":true,"DataLength":4,"Message":{"Data":"kQEBAAU=","IsExtended":false,"Length":5}},"Direction":"received"}
     const msg = JSON.parse(ev.data) as any;
     switch (msg.type) {
         case "cbus-standard": {
-            const standardMsg = msg as cbusStandardMessage;
+            const standardMsg = msg as CbusStandardMessage;
                         switch (standardMsg.direction) {
                 case "received":
                     _standardMessageReceived.trigger({OpCode: standardMsg.opCode, Text: msg.text});

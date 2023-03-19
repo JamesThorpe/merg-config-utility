@@ -19,10 +19,14 @@ type RecentMessage = {
     message: OpCodeMessage
 }
 
+interface Data {
+    recent: RecentMessage[]
+}
+
 export default {
-    data() {
+    data(): Data {
         return {
-            recent: [] as RecentMessage[]
+            recent: []
         }
     },
     mounted() {
@@ -34,7 +38,7 @@ export default {
         });
     },
     methods: {
-        addMessage(msg: OpCodeMessage, received: boolean) {
+        addMessage(msg: OpCodeMessage, received: boolean):void {
             this.recent.push({received: received, message: msg});
             while(this.recent.length > 20) {
                 this.recent.shift()

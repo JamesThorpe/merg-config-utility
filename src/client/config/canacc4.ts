@@ -1,6 +1,6 @@
-import { cbusModule, configurationTab } from "./cbus-module";
+import { CbusModule, ConfigurationTab } from "./cbus-module";
 
-export class CANACC4 implements cbusModule {
+export class CanAcc4 implements CbusModule {
     get manufacturerId(): number {
         return 165;
     }
@@ -13,7 +13,7 @@ export class CANACC4 implements cbusModule {
     get expectWrack(): boolean {
         return false;
     }
-    get configurationTabs(): configurationTab[] {
+    get configurationTabs(): ConfigurationTab[] {
         return [
             {
                 name: "General",

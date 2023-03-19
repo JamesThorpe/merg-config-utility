@@ -1,4 +1,4 @@
-export type configurationItem = {
+export type ConfigurationItem = {
     name: string,
     type: "numeric",
     nv: number,
@@ -14,16 +14,16 @@ export type configurationItem = {
     selectValues: string[]
 };
 
-export type configurationTab = {
+export type ConfigurationTab = {
     name: string,
-    items: configurationItem[]
+    items: ConfigurationItem[]
 };
 
-export type cbusModule = {
+export type CbusModule = {
     get manufacturerId(): number;
     get moduleId(): number;
     get name(): string;
-    get configurationTabs(): configurationTab[];
+    get configurationTabs(): ConfigurationTab[];
     get expectWrack(): boolean;
     //TODO: add support for firmware versions
 };

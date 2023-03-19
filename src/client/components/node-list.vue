@@ -65,17 +65,18 @@
 </template>
 <script lang="ts">
 
-import { Network, CbusNode } from "../config/cbusnetwork";
-import NodeEditor from "./NodeEditor.vue";
+import { Network } from "../config/Network";
+import { CbusNode } from "../config/CbusNode";
+import NodeEditor from "./node-editor.vue";
 
-interface NodeListData {
+interface Data {
     network: typeof Network,
     loading: boolean,
     nodeToEdit: CbusNode
 }
 
 export default {
-    data() : NodeListData {
+    data() : Data {
         return {
             network: Network,
             loading: false,
