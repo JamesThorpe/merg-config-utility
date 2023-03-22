@@ -25,13 +25,13 @@
                 <v-window v-model="tab">
                     <v-window-item v-for="(tab, i) in config.configurationTabs" :value="`configTab${i}`">
                         <div v-for="item in tab.items">
-                        <v-text-field :label="item.name" v-model="node.getVariable(item.nv).value" density="compact" hide-details></v-text-field>
+                            <nv-editor-byte :label="item.name" v-model="node.getVariable(item.nv).value"></nv-editor-byte>
                         </div>
                     </v-window-item>
                     <v-window-item value="nvs" class="nvList">
                         <div>
                             <div v-for="(_, i) in node.variables">
-                                <v-text-field hide-details :label="`NV ${node.variables[i].index}`" v-model="node.variables[i].value" density="compact"></v-text-field>
+                                <nv-editor-byte :label="`NV ${node.variables[i].index}`" v-model="node.variables[i].value"></nv-editor-byte>
                             </div>
                         </div>
                     </v-window-item>
@@ -51,6 +51,7 @@ import { CbusNode } from '../config/cbus-node';
 import { CbusModule } from '../config/cbus-module';
 import { Network } from '../config/network';
 import { UnknownModule } from "../config/unknown-module";
+import nvEditorByte from "./nv-editor-byte.vue"
 
 interface Data {
     dialogOpen: boolean,
@@ -59,6 +60,9 @@ interface Data {
 }
 
 export default defineComponent({
+    components:{
+        nvEditorByte
+    },
     props: {
         node: {
             type: CbusNode,
