@@ -2,8 +2,10 @@ import { OpCodes, CbusNodes } from "../api/api";
 import { Socket } from "../api/socket";
 import { reactive } from "vue";
 import { CanAcc4 } from "./canacc4";
+import { CanAce8c } from "./canace8c";
 import { CbusModule } from "./cbus-module";
 import { CbusNode } from "./cbus-node";
+import { NodeVariable } from "./node-variable";
 
 export interface NetworkData {
     nodes: CbusNode[]
@@ -36,6 +38,19 @@ export const Network = reactive({
         existingNode.isFlim = (nf & 4) === 4,
         existingNode.isBootloadable = (nf & 8) === 8,
         existingNode.params = params
+    },
+
+    addNodeManually(manufacturerId: number, moduleId: number, nodeNumber: number, supportedNVs: number) {
+        const node = new CbusNode();
+        node.nodeNumber = nodeNumber;
+        node.manufacturerId = manufacturerId;
+        node.moduleId = moduleId;
+        node.params = [0, manufacturerId, "x".charCodeAt(0), moduleId, 0, 0, supportedNVs, 9];
+        node.variables = [];
+        for (var i = 0; i < supportedNVs; i++) {
+            node.variables.push(new NodeVariable(i+1, 0));
+        }
+        this.nodes.push(node);
     },
 
     async refreshNodes() {
@@ -82,6 +97,7 @@ export const Network = reactive({
     async loadConfigs() {
         this.configs = [];
         this.configs.push(new CanAcc4());
+        this.configs.push(new CanAce8c());
     }
     
 });

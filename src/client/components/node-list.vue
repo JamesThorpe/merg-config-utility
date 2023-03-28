@@ -57,7 +57,8 @@
             </tbody>
         </v-table>
         <v-card-actions class="justify-end">
-            <v-btn @click="refresh" size="x-small" icon>
+            <add-node-manually></add-node-manually>
+            <v-btn @click="refresh" size="small" icon>
                 <v-icon icon="mdi-refresh"></v-icon>
             </v-btn>
         </v-card-actions>
@@ -68,6 +69,7 @@ import { defineComponent } from "vue";
 import { Network } from "../config/network";
 import { CbusNode } from "../config/cbus-node";
 import NodeEditor from "./node-editor.vue";
+import AddNodeManually from "./add-node-manually.vue";
 
 interface Data {
     network: typeof Network,
@@ -82,7 +84,8 @@ export default defineComponent({
         }
     },
     components: {
-        "node-editor": NodeEditor
+        "node-editor": NodeEditor,
+        "add-node-manually": AddNodeManually
     },
     methods: {
         async refresh() {
