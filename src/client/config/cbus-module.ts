@@ -1,18 +1,38 @@
-export type ConfigurationItem = {
+export type BaseConfigurationItem = {
     name: string,
+    nv: number,
+}
+
+export type NumericConfigurationItem = {
     type: "numeric",
-    nv: number,
-} | {
-    name: string,
+    units?: string,
+    scale?: number,
+    min?: number;
+    max?: number;
+} & BaseConfigurationItem;
+
+export type FlagConfigurationItem = {
     type: "flag",
-    nv: number,
     flagValue: number
-} | {
+} & BaseConfigurationItem;
+
+export type SelectValue = {
     name: string,
-    type: "select",
-    nv: number,
-    selectValues: string[]
+    value: number
 };
+
+export type SelectConfigurationItem = {
+    type: "select",
+    selectValues: SelectValue[]
+} & BaseConfigurationItem;
+
+export type GroupConfigurationItem = {
+    type: "group",
+    groupName: string,
+    items: ConfigurationItem[]
+};
+
+export type ConfigurationItem = NumericConfigurationItem | FlagConfigurationItem | SelectConfigurationItem | GroupConfigurationItem;
 
 export type ConfigurationTab = {
     name: string,
